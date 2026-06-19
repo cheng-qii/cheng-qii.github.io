@@ -1,0 +1,455 @@
+/* ================================================
+   style.css — Sito PCTO di Qi Cheng
+   Un file CSS commenta ogni scelta di stile
+   ================================================ */
+
+
+/* --- VARIABILI GLOBALI ---
+   Con :root definiamo dei "nomi" per i colori,
+   così se vogliamo cambiare un colore lo cambiamo
+   solo qui e si aggiorna ovunque nel sito. */
+:root {
+  --beige:      #f7f0e6;   /* sfondo principale, color crema */
+  --beige2:     #ede3d5;   /* sfondo leggermente più scuro, per sezioni alternate */
+  --bordo:      #d6c8b4;   /* colore dei bordi e delle linee */
+  --arancione:  #c0622a;   /* colore principale, usato per titoli e pulsanti */
+  --marrone:    #3a2010;   /* colore del testo principale */
+  --grigio:     #8a6e58;   /* colore del testo secondario (sottotitoli, didascalie) */
+}
+
+
+/* --- RESET BASE ---
+   Il browser aggiunge margin e padding automaticamente
+   a certi elementi. Qui li azzeriamo per partire da zero. */
+* {
+  box-sizing: border-box; /* il padding non "allarga" gli elementi, rimane dentro */
+  margin: 0;
+  padding: 0;
+}
+
+
+/* --- CORPO DELLA PAGINA ---
+   Stile di base applicato a tutta la pagina. */
+body {
+  background-color: var(--beige);    /* sfondo crema */
+  color: var(--marrone);             /* testo scuro */
+  font-family: 'Unbounded', sans-serif; /* font per i titoli e il testo generale */
+}
+
+
+/* ================================================
+   NAVBAR (barra di navigazione in cima)
+   ================================================ */
+
+/* Contenitore della navbar */
+#mainNav {
+  background-color: rgba(247, 240, 230, 0.95); /* beige quasi opaco */
+  border-bottom: 1px solid var(--bordo);        /* linea sottile in fondo alla navbar */
+}
+
+/* Il logo/brand a sinistra nella navbar */
+.navbar-brand {
+  font-weight: 900;          /* grassetto massimo */
+  font-size: 1.1rem;         /* dimensione testo */
+  color: var(--marrone) !important; /* !important sovrascrive lo stile di Bootstrap */
+}
+
+/* Il pulsante hamburger (visibile solo su mobile) */
+.navbar-toggler {
+  border: 1px solid var(--bordo); /* bordo sottile */
+}
+
+/* I link nella navbar (Home, PCTO 01, ecc.) */
+.nav-link {
+  font-family: 'JetBrains Mono', monospace; /* font a larghezza fissa, stile tecnico */
+  font-size: 0.72rem;                       /* testo piccolo */
+  color: var(--grigio) !important;          /* colore grigio di default */
+  padding: 0.4rem 0.8rem !important;        /* spazio interno attorno al testo */
+  border-radius: 5px;                       /* angoli leggermente arrotondati */
+  transition: color 0.2s, background 0.2s; /* animazione fluida al passaggio del mouse */
+}
+
+/* Link attivo (la pagina corrente) e hover (mouse sopra) */
+.nav-link:hover,
+.nav-link.active {
+  color: var(--arancione) !important;            /* diventa arancione */
+  background-color: rgba(192, 98, 42, 0.08);    /* sfondo leggerissimo arancione */
+}
+
+
+/* ================================================
+   CAROUSEL (slideshow nella home)
+   e PAGE HERO (intestazione nelle pagine interne)
+   ================================================ */
+
+/* Il carousel occupa tutta la larghezza.
+   margin-top: 54px perché la navbar è alta circa 54px
+   e il carousel deve partire subito sotto. */
+.carousel {
+  margin-top: 54px;
+}
+
+/* Ogni slide del carousel */
+.carousel-item {
+  height: 480px;           /* altezza fissa della slide */
+  background-size: cover;  /* l'immagine di sfondo copre tutto */
+  position: relative;      /* necessario per posizionare la caption sopra */
+}
+
+/* La hero nelle pagine interne (PCTO 01, Malta, ecc.)
+   È come una slide fissa, senza il carousel. */
+.page-hero {
+  height: 340px;
+  background-size: cover;
+  position: relative;
+  margin-top: 54px; /* stesso margine del carousel */
+}
+
+/* Sfondi colorati per ogni slide/hero.
+   Ogni pagina ha il suo gradiente. */
+.carousel-slide-1 {
+  background: linear-gradient(150deg, #b85c2a, #d4793f, #e8a060);
+}
+.carousel-slide-2 {
+  background: linear-gradient(150deg, #7a3a18, #b85c2a, #d4703a);
+}
+.carousel-slide-3 {
+  background: linear-gradient(150deg, #c06828, #d4793f, #e09050);
+}
+.carousel-slide-malta {
+  background: linear-gradient(150deg, #1f6e8c, #2a9d8f, #4cbfa8); /* verde/blu per Malta */
+}
+
+/* Strato scuro semitrasparente sopra lo sfondo
+   per far risaltare meglio il testo bianco.
+   ::before è un elemento "fantasma" che creiamo con CSS. */
+.carousel-item::before,
+.page-hero::before {
+  content: '';                        /* obbligatorio per ::before */
+  position: absolute;                 /* si posiziona rispetto al genitore */
+  inset: 0;                           /* occupa tutto lo spazio (top/right/bottom/left = 0) */
+  background: rgba(0, 0, 0, 0.22);   /* nero al 22% di opacità */
+}
+
+/* Il testo al centro della slide (titolo + bottone) */
+.carousel-caption {
+  position: absolute;         /* si posiziona sopra lo slide */
+  inset: 0;                   /* occupa tutto lo spazio */
+  display: flex;              /* usa flexbox per centrare il contenuto */
+  flex-direction: column;     /* elementi in colonna (uno sotto l'altro) */
+  align-items: center;        /* centrati orizzontalmente */
+  justify-content: center;    /* centrati verticalmente */
+  text-align: center;
+  padding: 0 20px;
+  z-index: 1;                 /* sta sopra lo strato scuro ::before */
+}
+
+/* Titolo nella caption */
+.carousel-caption h1 {
+  color: #fff;                              /* bianco */
+  text-shadow: 0 1px 6px rgba(0,0,0,0.2); /* ombra leggera per leggibilità */
+}
+
+/* Sottotitolo nella caption */
+.carousel-caption .lead {
+  color: rgba(255, 255, 255, 0.85); /* bianco leggermente trasparente */
+  font-size: 0.95rem;
+}
+
+/* Piccolo testo sopra il titolo (es. "// Portfolio PCTO") */
+.accent-light {
+  color: rgba(255, 255, 255, 0.65); /* bianco più trasparente */
+}
+
+/* Pallini indicatori del carousel (in basso) */
+.carousel-indicators [data-bs-target] {
+  width: 8px;
+  height: 8px;
+  border-radius: 50%;    /* li rende tondi */
+  border: none;
+  background: rgba(255, 255, 255, 0.45);
+}
+.carousel-indicators .active {
+  background: #fff; /* il pallino attivo è bianco pieno */
+}
+
+
+/* ================================================
+   SEZIONE MARKETING (contenuto principale)
+   ================================================ */
+
+/* Limita la larghezza massima del contenuto centrale */
+.marketing {
+  max-width: 920px;
+}
+
+/* Icona emoji grande sopra le card */
+.feature-icon {
+  font-size: 2.8rem;
+  line-height: 1;
+}
+
+/* La linea divisoria tra le sezioni featurette */
+.featurette-divider {
+  border-color: var(--bordo); /* colore beige scuro */
+  margin: 52px 0;             /* spazio sopra e sotto */
+}
+
+/* Titolo delle sezioni featurette */
+.featurette-heading {
+  font-size: clamp(1.25rem, 2.8vw, 1.85rem); /* dimensione fluida: cresce con lo schermo */
+  line-height: 1.25;
+  color: var(--marrone);
+}
+
+/* La parte colorata nel titolo (es. "Imparare sul campo.") */
+.text-accent {
+  color: var(--arancione);
+}
+
+/* Il quadrato con l'emoji a fianco del testo featurette */
+.featurette-img {
+  background-color: var(--beige2); /* sfondo beige più scuro */
+  border: 1px solid var(--bordo);
+  border-radius: 14px;
+  height: 210px;
+  font-size: 4.5rem;               /* emoji grande */
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+
+/* ================================================
+   PULSANTI
+   ================================================ */
+
+/* Pulsante pieno (arancione) */
+.btn-warm {
+  display: inline-block;
+  background-color: var(--arancione);
+  color: #fff;
+  font-family: 'JetBrains Mono', monospace;
+  font-size: 0.7rem;
+  font-weight: 700;
+  letter-spacing: 0.06em;
+  padding: 0.55rem 1.3rem;
+  border: none;
+  border-radius: 6px;
+  text-decoration: none; /* rimuove la sottolineatura dei link */
+  transition: background-color 0.15s; /* animazione al hover */
+}
+.btn-warm:hover {
+  background-color: #d4703a; /* arancione leggermente più chiaro */
+  color: #fff;
+}
+
+/* Pulsante con solo il bordo (outline) */
+.btn-outline-warm {
+  display: inline-block;
+  background-color: transparent;
+  color: var(--arancione);
+  font-family: 'JetBrains Mono', monospace;
+  font-size: 0.7rem;
+  font-weight: 700;
+  letter-spacing: 0.06em;
+  padding: 0.55rem 1.3rem;
+  border: 1.5px solid var(--arancione); /* solo il bordo colorato */
+  border-radius: 6px;
+  text-decoration: none;
+  transition: background-color 0.15s, color 0.15s;
+}
+.btn-outline-warm:hover {
+  background-color: var(--arancione); /* al hover si riempie */
+  color: #fff;
+}
+
+
+/* ================================================
+   CARD COMPETENZE (barre delle skill)
+   ================================================ */
+
+/* Contenitore della singola skill */
+.skill-card {
+  background-color: var(--beige);
+  border: 1px solid var(--bordo);
+  border-radius: 10px;
+  transition: border-color 0.15s;
+}
+.skill-card:hover {
+  border-color: var(--arancione); /* bordo arancione al hover */
+}
+
+/* La barra grigia di sfondo */
+.skill-level-bar {
+  background-color: var(--beige2);
+  border-radius: 3px;
+  height: 4px;
+  overflow: hidden; /* taglia la barra colorata che potrebbe uscire */
+}
+
+/* La barra colorata che indica il livello */
+.skill-level-bar div {
+  height: 100%;
+  background-color: var(--arancione);
+  border-radius: 3px;
+  /* la larghezza (es. "width: 65%") viene impostata
+     direttamente nell'HTML con lo style inline */
+}
+
+
+/* ================================================
+   TAG PILL (etichette piccole)
+   ================================================ */
+
+.tag-pill {
+  font-family: 'JetBrains Mono', monospace;
+  font-size: 0.6rem;
+  letter-spacing: 0.07em;
+  text-transform: uppercase; /* tutto maiuscolo */
+  padding: 3px 10px;
+  border: 1px solid var(--bordo);
+  border-radius: 20px;       /* molto arrotondato → forma pillola */
+  color: var(--grigio);
+  background: transparent;
+  transition: border-color 0.15s, color 0.15s;
+}
+.tag-pill:hover {
+  border-color: var(--arancione);
+  color: var(--arancione);
+}
+
+
+/* ================================================
+   COMPARE BOX e BADGE (pagina PCTO 02)
+   ================================================ */
+
+/* Riquadro "Rispetto al PCTO 01" */
+.compare-box {
+  background-color: rgba(192, 98, 42, 0.05); /* arancione quasi invisibile */
+  border: 1px solid rgba(192, 98, 42, 0.2);
+  border-radius: 10px;
+}
+
+/* Singolo badge dentro il compare-box */
+.badge-improve {
+  font-family: 'JetBrains Mono', monospace;
+  font-size: 0.6rem;
+  padding: 4px 10px;
+  border-radius: 20px;
+  background-color: rgba(192, 98, 42, 0.08);
+  color: var(--arancione);
+  border: 1px solid rgba(192, 98, 42, 0.2);
+}
+
+
+/* ================================================
+   DAY CARD (programma giorno per giorno — Malta)
+   ================================================ */
+
+.day-card {
+  background-color: var(--beige);
+  border: 1px solid var(--bordo);
+  border-radius: 10px;
+  transition: border-color 0.15s;
+}
+.day-card:hover {
+  border-color: var(--arancione);
+}
+
+/* La data piccola (es. "VEN 10 APR") */
+.day-date {
+  font-family: 'JetBrains Mono', monospace;
+  font-size: 0.65rem;
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+  color: var(--arancione);
+}
+
+/* Il titolo del giorno (es. "Partenza") */
+.day-title {
+  font-size: 0.88rem;
+}
+
+
+/* ================================================
+   CLASSI UTILITY (usabili ovunque nell'HTML)
+   ================================================ */
+
+/* Applica il font monospace a qualsiasi elemento */
+.mono {
+  font-family: 'JetBrains Mono', monospace;
+}
+
+/* Applica il colore arancione a qualsiasi elemento */
+.accent {
+  color: var(--arancione);
+}
+
+
+/* ================================================
+   FOOTER
+   ================================================ */
+
+.footer-bar {
+  border-top: 1px solid var(--bordo);
+  background-color: var(--beige2); /* beige un po' più scuro del body */
+}
+
+
+/* ================================================
+   ANIMAZIONE SCROLL (comparsa al scroll)
+   ================================================ */
+
+/* Gli elementi con data-aos partono invisibili e spostati verso il basso */
+[data-aos] {
+  opacity: 0;                              /* invisibile */
+  transform: translateY(16px);            /* spostato 16px verso il basso */
+  transition: opacity 0.5s, transform 0.5s; /* animazione di 0.5 secondi */
+}
+
+/* Quando diventano visibili (classe aggiunta da main.js) tornano normali */
+[data-aos].aos-visible {
+  opacity: 1;
+  transform: none; /* nessuna traslazione → torna alla posizione normale */
+}
+
+
+/* ================================================
+   RESPONSIVE (adattamento ai telefoni)
+   ================================================ */
+
+/* Queste regole si applicano SOLO se lo schermo è
+   più stretto di 768px (tablet/smartphone) */
+@media (max-width: 768px) {
+  .carousel-item  { height: 380px; }   /* slide più bassa */
+  .page-hero      { height: 300px; }   /* hero più bassa */
+  .featurette-img { height: 150px; font-size: 3rem; margin-top: 20px; }
+  .featurette-divider { margin: 36px 0; } /* meno spazio tra le sezioni */
+}
+
+
+/* ================================================
+   SEZIONE MAPPA (Google Maps embed)
+   ================================================ */
+
+/* Contenitore del titolo + mappa + bottone */
+.map-section {
+  max-width: 920px;
+}
+
+/* Il div che avvolge l'iframe della mappa.
+   overflow: hidden taglia gli angoli arrotondati sull'iframe. */
+.map-wrap {
+  border-radius: 12px;         /* angoli arrotondati */
+  overflow: hidden;            /* nasconde quello che esce dagli angoli */
+  border: 1px solid var(--bordo); /* bordo sottile beige */
+  box-shadow: 0 2px 12px rgba(58, 32, 16, 0.08); /* ombra leggera */
+}
+
+/* L'iframe di Google Maps */
+.map-wrap iframe {
+  display: block;  /* rimuove lo spazio vuoto sotto l'iframe (comportamento default img) */
+  width: 100%;
+  height: 340px;
+}
