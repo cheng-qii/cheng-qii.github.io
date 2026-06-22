@@ -430,8 +430,36 @@ body {
 
 
 /* ================================================
-   SEZIONE MAPPA (Google Maps embed)
+   GALLERIA FOTO (sezione screenshot pagine PCTO)
    ================================================ */
+
+.gallery-img-wrap {
+  border: 1px solid var(--bordo);
+  border-radius: 12px;
+  overflow: hidden;
+  box-shadow: 0 2px 16px rgba(58, 32, 16, 0.08);
+  padding: 0;
+  text-align: center;
+  background-color: var(--beige2);
+}
+
+.gallery-img-wrap img {
+  display: block;
+  width: 100%;
+  border-radius: 12px 12px 0 0;
+  transition: transform 0.3s ease;
+}
+
+.gallery-img-wrap:hover img {
+  transform: scale(1.01);
+}
+
+.gallery-img-wrap p {
+  padding: 8px 12px 10px;
+  margin: 0;
+}
+
+
 
 /* Contenitore del titolo + mappa + bottone */
 .map-section {
